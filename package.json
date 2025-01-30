@@ -11,5 +11,8 @@
     "App"
   ],
   "author": "M.Suleman",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
