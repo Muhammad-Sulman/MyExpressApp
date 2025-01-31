@@ -1,64 +1,69 @@
 var express = require("express");
+var path = require('path');
 var app = express();
 
 
-app.get('/', (req, res) => {
-
-    res.send([
-        {
-            name:"Suleman", 
-            age : 21,
-            height : 5.10
-        },
-        {
-            name:"Muzamil", 
-            age : 20,
-            height : 5.4
-        },
-        {
-            name:"Aqib", 
-            age : 22,
-            height : 5.11
-        }
-    ]);
-
-    // res.send({
-    //     name:"Suleman", 
-    //     age : 21,
-    //     height : 5.10
-    // });
-
-    // res.send(`
-    //     <h1>Welcome to HomePage...! </h1>
-    //     <a href='/about'> Go To About Page...!</a>
-    //     `);
-});
-
-app.get('/about', (req, res) => {
+var public = path.join(__dirname, 'public');
+app.use(express.static(public));
 
 
-    const name = req.query.name;
-    if (!name) {
-        res.send(`
-            <h1>Welcome to About Page...! </h1>
-        <input type='text' placeholder='Enter Your Name'  ><br></br>
+// app.get('/', (req, res) => {
+
+//     res.send([
+//         {
+//             name:"Suleman", 
+//             age : 21,
+//             height : 5.10
+//         },
+//         {
+//             name:"Muzamil", 
+//             age : 20,
+//             height : 5.4
+//         },
+//         {
+//             name:"Aqib", 
+//             age : 22,
+//             height : 5.11
+//         }
+//     ]);
+
+//     // res.send({
+//     //     name:"Suleman", 
+//     //     age : 21,
+//     //     height : 5.10
+//     // });
+
+//     // res.send(`
+//     //     <h1>Welcome to HomePage...! </h1>
+//     //     <a href='/about'> Go To About Page...!</a>
+//     //     `);
+// });
+
+// app.get('/about', (req, res) => {
+
+
+//     const name = req.query.name;
+//     if (!name) {
+//         res.send(`
+//             <h1>Welcome to About Page...! </h1>
+//         <input type='text' placeholder='Enter Your Name'  ><br></br>
         
-        `);
-    } else {
-        res.send(`
-            <h1>Welcome to About Page...! </h1>
-            <input type='text' placeholder='Enter Your Name'  value=${name}><br></br>
+//         `);
+//     } else {
+//         res.send(`
+//             <h1>Welcome to About Page...! </h1>
+//             <input type='text' placeholder='Enter Your Name'  value=${name}><br></br>
             
-            `);
-    }
+//             `);
+//     }
 
-    // res.send(`
-    //     <h1>Welcome to About Page...! </h1>
-    //     <input type='text' placeholder='Enter Your Name'  value=${req.query.name}><br>
-    //     <br>
-    //     <a href='/'> Go To Home Page...!</a>
-    //     `);
-});
+//     // res.send(`
+//     //     <h1>Welcome to About Page...! </h1>
+//     //     <input type='text' placeholder='Enter Your Name'  value=${req.query.name}><br>
+//     //     <br>
+//     //     <a href='/'> Go To Home Page...!</a>
+//     //     `);
+// });
 
 app.listen(3000);
 
