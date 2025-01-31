@@ -6,6 +6,17 @@ var app = express();
 var public = path.join(__dirname, 'public');
 app.use(express.static(public));
 
+app.get('/', (req, res) => {
+    res.sendFile(`${public}/index.html`);
+});
+
+app.get('/about', (req, res) => {
+    res.sendFile(`${public}/about.html`);
+});
+
+app.get('/*', (req, res) => {
+    res.sendFile(`${public}/pagenotfound.html`);
+});
 
 // app.get('/', (req, res) => {
 
