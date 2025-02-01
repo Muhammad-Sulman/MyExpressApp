@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>This is Home Page</h1>
+    <!-- <h2>My Name Is: <%# name %></h2> -->
+    <h2><%= emp.name %></h2>
+    <h2><%= emp.age %></h2>
+    <h2><%= emp.friend %></h2>
+
+    <ul>
+        <% emp.hobbies.forEach((item) => { %>
+            <li><%= item %></li>
+        <% }) %>
+    </ul>
+
+    <% for(let i = 1; i <= 4; i++) {  %>
+        <h3><%= i %></h3>
+    <% } %>
+
+    <% let j = 1;
+    while(j <= 4) { %>
+        <h3><%= j %></h3>
+    <% j++;
+    } %>
+
+    <% if(emp.name == 'Ali') {  %>
+        <h2>Hello Ali</h2>
+        <% }else { %>
+        <h2>Who are you? </h2>
+        <% } %>
+
+</body>
+</html>

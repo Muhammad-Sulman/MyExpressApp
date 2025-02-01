@@ -1,22 +1,45 @@
 var express = require("express");
-var path = require('path');
+// var path = require('path');
 var app = express();
 
 
-var public = path.join(__dirname, 'public');
-app.use(express.static(public));
+app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.sendFile(`${public}/index.html`);
+// app.get('', (req, res) => {
+//     res.render('home', {name: 'Suleman'});
+// });
+
+
+app.get('', (req, res) => {
+    let Employee = {
+        name: 'Ali',
+        age: 21,
+        friend: 'Muzamil',
+        hobbies: ['Reading', 'Driving', 'Swimming', 'Sleeping']
+    }
+    res.render('home', {emp: Employee});
 });
 
-app.get('/about', (req, res) => {
-    res.sendFile(`${public}/about.html`);
-});
 
-app.get('/*', (req, res) => {
-    res.sendFile(`${public}/pagenotfound.html`);
-});
+
+
+app.listen(3000);
+
+
+// var public = path.join(__dirname, 'public');
+// app.use(express.static(public));
+
+// app.get('/', (req, res) => {
+//     res.sendFile(`${public}/index.html`);
+// });
+
+// app.get('/about', (req, res) => {
+//     res.sendFile(`${public}/about.html`);
+// });
+
+// app.get('/*', (req, res) => {
+//     res.sendFile(`${public}/pagenotfound.html`);
+// });
 
 // app.get('/', (req, res) => {
 
@@ -76,7 +99,7 @@ app.get('/*', (req, res) => {
 //     //     `);
 // });
 
-app.listen(3000);
+// app.listen(3000);
 
 
 
