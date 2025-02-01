@@ -1,17 +1,48 @@
 var express = require("express");
 var path = require('path');
+var fs = require('fs');
 var app = express();
 
 
 app.set('view engine', 'ejs');
 app.use('/css', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css')))
 app.use('/js', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'js')))
+
 // app.get('', (req, res) => {
 //     res.render('home', {name: 'Suleman'});
 // });
 
 
+// middleware 
+
+// app.use((req, res, next) => {
+//     req.name = "Suleman";
+//     console.log("The First Middleware...", req.name );
+//     // return res.json({data: "First Middleware..!"});
+//     next();
+// });
+
+// app.use((req, res, next) => {
+//     console.log("The Second Middleware...", req.name)
+//     // res.end();
+//     next();
+// });
+
+// Logging
+
+app.use((req, res, next) => {
+    const now = new Date();
+    fs.appendFile('Log.txt', `\n ${now.getDate()} / ${now.getMonth() + 1} / ${now.getFullYear()} :  ${req.method} : ${req.path}` , () => {
+        next();
+    });
+});
+
+
+
 app.get('', (req, res) => {
+    
+    console.log("Routing handler function...",  req.name )
+
     let Employee = {
         name: 'Ali',
         age: 21,
