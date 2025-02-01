@@ -1,6 +1,7 @@
 var express = require("express");
 var path = require('path');
 var fs = require('fs');
+const reqFilter = require('./middleware')
 var app = express();
 
 
@@ -28,20 +29,49 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 
 //     next();
 // });
 
-// Logging
+// // Logging
 
-app.use((req, res, next) => {
-    const now = new Date();
-    fs.appendFile('Log.txt', `\n ${now.getDate()} / ${now.getMonth() + 1} / ${now.getFullYear()} :  ${req.method} : ${req.path}` , () => {
-        next();
-    });
-});
+// app.use((req, res, next) => {
+//     const now = new Date();
+//     fs.appendFile('Log.txt', `\n ${now.getDate()} / ${now.getMonth() + 1} / ${now.getFullYear()} :  ${req.method} : ${req.path}` , () => {
+//         next();
+//     });
+// });
+
+// app.use(reqFilter);
 
 
-
-app.get('', (req, res) => {
+// app.get('', (req, res) => {
     
-    console.log("Routing handler function...",  req.name )
+//     // console.log("Routing handler function...",  req.name )
+
+//     let Employee = {
+//         name: 'Ali',
+//         age: 21,
+//         friend: 'Muzamil',
+//         hobbies: ['Reading', 'Driving', 'Swimming', 'Sleeping']
+//     }
+//     res.render('home', {emp: Employee});
+// });
+
+// app.get('/about', (req, res) => {
+//     res.render('about');
+// } );
+
+// app.get('/contact', (req, res) => {
+//     res.render('contact');
+// } );
+
+
+// Routing middleware
+const router = express.Router();
+const ageFilter = require('./middleware')
+router.use(ageFilter);
+
+// method 1
+app.get('',ageFilter, (req, res) => {
+    
+    // console.log("Routing handler function...",  req.name )
 
     let Employee = {
         name: 'Ali',
@@ -52,13 +82,18 @@ app.get('', (req, res) => {
     res.render('home', {emp: Employee});
 });
 
-app.get('/about', (req, res) => {
+// method 2
+
+router.get('/about', (req, res) => {
     res.render('about');
 } );
 
-app.get('/contact', (req, res) => {
+router.get('/contact', (req, res) => {
     res.render('contact');
 } );
+
+app.use('/', router); //mounting router with app (method 2)
+
 
 app.listen(3000);
 
