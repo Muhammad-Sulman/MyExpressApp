@@ -64,12 +64,40 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 
 
 
 // Routing middleware
-const router = express.Router();
-const ageFilter = require('./middleware')
-router.use(ageFilter);
+// const router = express.Router();
+// const ageFilter = require('./middleware')
+// router.use(ageFilter);
 
 // method 1
-app.get('',ageFilter, (req, res) => {
+// app.get('',ageFilter, (req, res) => {
+    
+//     // console.log("Routing handler function...",  req.name )
+
+//     let Employee = {
+//         name: 'Ali',
+//         age: 21,
+//         friend: 'Muzamil',
+//         hobbies: ['Reading', 'Driving', 'Swimming', 'Sleeping']
+//     }
+//     res.render('home', {emp: Employee});
+// });
+
+// // method 2
+
+// router.get('/about', (req, res) => {
+//     res.render('about');
+// } );
+
+// router.get('/contact', (req, res) => {
+//     res.render('contact');
+// } );
+
+// app.use('/', router); //mounting router with app (method 2)
+
+// Error Middleware
+const errorHandler = require('./middleware/errorHandler')
+
+app.get('', (req, res) => {
     
     // console.log("Routing handler function...",  req.name )
 
@@ -82,18 +110,22 @@ app.get('',ageFilter, (req, res) => {
     res.render('home', {emp: Employee});
 });
 
-// method 2
-
-router.get('/about', (req, res) => {
+app.get('/about', (req, res) => {
     res.render('about');
 } );
 
-router.get('/contact', (req, res) => {
+app.get('/contact', (req, res) => {
     res.render('contact');
 } );
 
-app.use('/', router); //mounting router with app (method 2)
+app.get('*', (req, res, next) => {
+    const error = new Error("Some went Wrong...!");
+    error.statusCode = 404;
+    error.status = "Failed";
+    next(error);
+} );
 
+app.use(errorHandler);
 
 app.listen(3000);
 
