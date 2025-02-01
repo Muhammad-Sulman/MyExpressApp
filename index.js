@@ -1,10 +1,11 @@
 var express = require("express");
-// var path = require('path');
+var path = require('path');
 var app = express();
 
 
 app.set('view engine', 'ejs');
-
+app.use('/css', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'js')))
 // app.get('', (req, res) => {
 //     res.render('home', {name: 'Suleman'});
 // });
